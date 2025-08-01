@@ -330,6 +330,11 @@ WhenBroadcastReceived(Reset time)
     }
 }
 
+WhenBroadcastReceived(River)
+{
+    Motion.Move(10);
+}
+
 WhenBroadcastReceived(start game)
 {
     Looks.SetSizeTo(150);
