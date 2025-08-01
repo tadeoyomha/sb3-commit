@@ -1,0 +1,36 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(colisiones)
+{
+    If (SCENE > 1)
+    {
+        If Sensing.TouchingObject(Car Body)
+        {
+            RAZÓN = "Saliste de la calle";
+            Event.Broadcast("Loose");
+        }
+    }
+}
+
+WhenBroadcastReceived(start game)
+{
+    Looks.Show();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+disfraz1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

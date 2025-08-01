@@ -1,0 +1,80 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+espacio = 0
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(cartel final)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    espacio = 1;
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Maze Generated)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Presiona espacio)
+{
+    Looks.SetEffectTo(GHOST, 100);
+    Control.Wait(2);
+    Looks.SetEffectTo(GHOST, 0);
+    Event.Broadcast("Ver espacio");
+    Repeat Until (espacio == 1)
+    {
+        Looks.SetEffectTo(GHOST, 0);
+        Control.Wait(0.5);
+        Looks.SetEffectTo(GHOST, 100);
+        Control.Wait(0.5);
+    }
+}
+
+WhenBroadcastReceived(reset)
+{
+    espacio = 1;
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(start game)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Ver espacio)
+{
+    espacio = 0;
+    Forever
+    {
+        If Sensing.KeyPressed(space)
+        {
+            espacio = 1;
+        }
+        Stop(this script);
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+disfraz1.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

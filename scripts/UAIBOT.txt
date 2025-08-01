@@ -1,0 +1,45 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Cartel de Perdiste)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(cartel final)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(reset)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(start game)
+{
+    Motion.GoToXY(0, -95);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Tiempo acabo)
+{
+    Looks.Show();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+UAIBOT.png

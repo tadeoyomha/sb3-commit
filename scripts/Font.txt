@@ -1,0 +1,662 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+c = 
+desvanecer = 100
+frame = 0
+i = 35
+page width = 275
+safe i = 
+safe width = 198
+txt = Esperamos que te hayas divertido!
+width = 72
+wrap i = 34
+xx = 4.5
+
+
+//----- Lists ---------------------------------------------------------------------------------------------------------
+
+_offset x = { 
+    -156
+    279
+    279
+    266
+    255
+    243
+    231
+    231
+    221
+    210
+    198
+    186
+    186
+    182
+    173
+    162
+    152
+    135
+    123
+    123
+    110
+    99
+    86
+    75
+    65
+    54
+    54
+    42
+    29
+    12
+    0
+    -13
+    -24
+    -24
+    -34
+    -45
+    -54
+    -64
+    -64
+    -75
+    -84
+    -94
+    -105
+    -105
+    -109
+    -115
+    -124
+    -129
+    -145
+    -156
+    -156
+    -166
+    -177
+    -187
+    -195
+    -204
+    -213
+    -223
+    -234
+    -250
+    -261
+    -271
+    236
+    222
+    213
+    201
+    189
+    177
+    165
+    153
+    141
+    129
+    116
+    105
+    62
+    50
+    44
+    44
+    30
+    30
+    24
+    9
+    -3
+    -13
+    -28
+    -39
+    -54
+    -70
+    -85
+    -97
+    -108
+    -115
+    -127
+    -132
+    -138
+    -148
+    -160
+    -171
+    -177
+    -186
+    -192
+    -208
+    -216
+    -220
+    -228
+}
+_width = { 
+    7.5
+    12.5
+    12.5
+    9.5
+    10.5
+    10.5
+    9.5
+    9.5
+    9.5
+    10.5
+    10.5
+    3.5
+    4.5
+    8.5
+    9.5
+    9.5
+    15.5
+    10.5
+    12.5
+    12.5
+    9.5
+    12.5
+    9.5
+    9.5
+    9.5
+    10.5
+    10.5
+    12.5
+    15.5
+    10.5
+    12.5
+    9.5
+    9.5
+    9.5
+    9.5
+    7.5
+    9.5
+    9.5
+    9.5
+    7.5
+    9.5
+    9.5
+    3.5
+    4.5
+    5.5
+    8.5
+    3.5
+    15.5
+    9.5
+    9.5
+    9.5
+    9.5
+    9.5
+    6.5
+    7.5
+    7.5
+    9.5
+    9.5
+    15.5
+    9.5
+    9.5
+    8.5
+    11.5
+    6.5
+    10.5
+    10.5
+    10.5
+    10.5
+    10.5
+    10.5
+    10.5
+    10.5
+    3.5
+    4.5
+    6.5
+    3.5
+    8.5
+    8.5
+    3.5
+    3.5
+    13.5
+    10.5
+    9.5
+    14.5
+    9.5
+    13.5
+    12.5
+    6.5
+    6.5
+    9.5
+    6.5
+    8.5
+    3.5
+    4.5
+    9.5
+    11.5
+    9.5
+    4.5
+    7.5
+    4.5
+    9.5
+    6.5
+    3.5
+    6.5
+    10.5
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Cartel de Perdiste)
+{
+    Stop(other scripts in sprite);
+    Looks.SetEffectTo(GHOST, 0);
+    Looks.SetSizeTo(225);
+    Call Calculate letter sizes: gap:(1);
+    Call Set page Left(-75) Top(135) Right(200) Bottom(50);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("Presiona espacio");
+    Control.Wait(0);
+    Call Write(Operator.Join(RAZÓN, ", inténtalo nuevamente")) align("c");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("reset");
+}
+
+WhenBroadcastReceived(cartel final)
+{
+    Stop(other scripts in sprite);
+    Looks.ClearGraphicEffects();
+    Looks.SetSizeTo(150);
+    Looks.SetEffectTo(BRIGHTNESS, -20);
+    Call Calculate letter sizes: gap:(1);
+    Event.Broadcast("Clear font letters");
+    Call Set page Left(-75) Top(135) Right(200) Bottom(20);
+    Control.Wait(0);
+    Call Set page Left(-75) Top(135) Right(200) Bottom(20);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("ESPECTRA");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Muy bien, Ganaste el juego!") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("CIBER");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Ahora te queremos decir algo...") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("CIBER");
+    Event.Broadcast("Presiona espacio");
+    Call Write("La movilidad sostenible es buena para el medio ambiente y para nuestra salud. Ayuda a reducir la contaminación y el ruido en las ciudades.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("ESPECTRA");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Esperamos que te hayas divertido!") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Stop(all);
+}
+
+WhenBroadcastReceived(Clear font letters)
+{
+    Motion.SetY(PAGE T);
+    Control.DeleteThisClone();
+}
+
+WhenBroadcastReceived(Reset time)
+{
+    Sensing.ResetTimer();
+    Event.Broadcast("TIME");
+    Looks.SetSizeTo(180);
+    Looks.SetEffectTo(GHOST, 0);
+    Call Calculate letter sizes: gap:(1);
+    frame = 0;
+    Forever
+    {
+        TIME = (25 - Sensing.Timer());
+        TIME = floor((TIME * 1000));
+        TIME = (TIME / 1000);
+        Event.Broadcast("Clear font letters");
+        If (TIME < 0)
+        {
+            TIME = 0;
+            frame += 1;
+            If ((frame % 10) == 1)
+            {
+                desvanecer = (100 - desvanecer);
+                Looks.SetEffectTo(GHOST, desvanecer);
+            }
+            If (frame > 100)
+            {
+                Call Set page Left(-75) Top(135) Right(200) Bottom(20);
+                Control.Wait(0);
+                Event.Broadcast("Tiempo acabo");
+                Stop(this script);
+            }
+        }
+        Call Set page Left(-220) Top(-160) Right(-75) Bottom(-170);
+        Call Write(Operator.Join("Tiempo:", TIME)) align("l");
+    }
+}
+
+WhenBroadcastReceived(start game)
+{
+    Looks.SetSizeTo(150);
+    Looks.SetEffectTo(BRIGHTNESS, -20);
+    Looks.Hide();
+    Call Calculate letter sizes: gap:(1);
+    Event.Broadcast("Clear font letters");
+    Call Set page Left(-75) Top(135) Right(200) Bottom(20);
+    Event.Broadcast("Test script");
+}
+
+WhenBroadcastReceived(Test script)
+{
+    Costume.GoToFrontBack(front);
+    Call Set page Left(-75) Top(135) Right(200) Bottom(20);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("UAIBOT");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Hola, chicos y chicas, hoy les vamos a presentar un juego.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("ESPECTRA");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Este juego se trata de llevar dos vehículos a un espacio verde.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("CIBER");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Para moverse ustedes van a necesitar las flechas arriba, abajo, izquierda y derecha.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("ESPECTRA");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Ten cuidado que pueden aparecer animales ¡PERO NO LOS VAYAS A ATROPELLAR! O vas a volver al principio.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("CIBER");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Si salís de la calle también vas a volver al principio.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("UAIBOT");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Y también van a aparecer personas, pero tranquilo que seguro se van a querer subir con vos.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("UAIBOT");
+    Event.Broadcast("Presiona espacio");
+    Call Write("Aunque vas a tener cierta cantidad de tiempo para llegar al espacio verde o volverás al principio.") align("l");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("Transition1");
+}
+
+WhenBroadcastReceived(Tiempo acabo)
+{
+    Looks.SetEffectTo(GHOST, 0);
+    Looks.SetSizeTo(225);
+    Call Calculate letter sizes: gap:(1);
+    Call Set page Left(-75) Top(135) Right(200) Bottom(50);
+    Event.Broadcast("Clear font letters");
+    Event.Broadcast("Presiona espacio");
+    Control.Wait(0);
+    Call Write("Se acabó el tiempo, Inténtalo nuevamente.") align("c");
+    Wait Until (Not (Sensing.KeyPressed(space)));
+    Wait Until Sensing.KeyPressed(space);
+    Event.Broadcast("reset");
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    Looks.Show();
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define Calculate align(string align) (warp=true)
+{
+    If (align == "c")
+    {
+        xx = (((PAGE L + PAGE R) - width) / 2);
+    }
+    Else
+    {
+        If (align == "r")
+        {
+            xx = (PAGE R - width);
+        }
+        Else
+        {
+            xx = PAGE L;
+        }
+    }
+}
+
+Define Calculate letter sizes: gap:(string gap) (warp=true)
+{
+    LINE HEIGHT = ((Looks.Size() / 100) * 15);
+    List.DeleteAll(_width);
+    List.DeleteAll(_offset x);
+    Looks.SwitchCostumeTo(Operator.Round(0));
+    Repeat (Costume.GetNumberName(number))
+    {
+        Looks.NextCostume();
+        Motion.SetY(0);
+        If (Variable.Length(Costume.GetNumberName(name)) == 1)
+        {
+            Motion.SetX(-9999);
+            Repeat Until (Not (Sensing.TouchingObject(_edge_)))
+            {
+                Motion.ChangeXBy(1);
+            }
+            Motion.ChangeXBy(240);
+            xx = Motion.XPosition();
+            Motion.SetX(9999);
+            Repeat Until (Not (Sensing.TouchingObject(_edge_)))
+            {
+                Motion.ChangeXBy(-1);
+            }
+            List.Add(_offset x, xx);
+            i = ((xx + 240) - Motion.XPosition());
+            List.Add(_width, (i + ((Looks.Size() / 100) * gap)));
+        }
+        Else
+        {
+            List.Add(_offset x, "");
+            List.Add(_width, "");
+        }
+    }
+}
+
+Define Find text wrap index (warp=true)
+{
+    width = 0;
+    safe i = "";
+    Forever
+    {
+        wrap i += 1;
+        c = Operator.LetterOf(txt, wrap i);
+        If (c == "")
+        {
+            Stop(this script);
+        }
+        If (c == " ")
+        {
+            safe i = wrap i;
+            safe width = width;
+        }
+        Looks.SwitchCostumeTo( );
+        Looks.SwitchCostumeTo(c);
+        width += _width[Costume.GetNumberName(number)];
+        If (width > page width)
+        {
+            If (safe i > "")
+            {
+                wrap i = safe i;
+                width = safe width;
+            }
+            Else
+            {
+                wrap i += -1;
+                width += (0 - _width[Costume.GetNumberName(number)]);
+            }
+            Stop(this script);
+        }
+    }
+}
+
+Define Set page Left(string x1) Top(string y1) Right(string x2) Bottom(string y2) (warp=true)
+{
+    PAGE L = x1;
+    PAGE T = y1;
+    PAGE R = x2;
+    PAGE B = y2;
+}
+
+Define Write(string text) align(string align) (warp=true)
+{
+    page width = (PAGE R - PAGE L);
+    txt = text;
+    wrap i = 0;
+    i = 1;
+    Repeat Until (i > Variable.Length(txt))
+    {
+        Call Find text wrap index;
+        Call Calculate align(align);
+        Call Write letter feed ;
+        Motion.ChangeYBy((0 - LINE HEIGHT));
+    }
+}
+
+Define Write letter feed  (warp=true)
+{
+    Repeat Until (i > wrap i)
+    {
+        Looks.SwitchCostumeTo( );
+        Looks.SwitchCostumeTo(Operator.LetterOf(txt, i));
+        If (Not ((Costume.GetNumberName(name) == " ")))
+        {
+            Motion.SetX((xx + _offset x[Costume.GetNumberName(number)]));
+            Control.CreateCloneOf(_myself_);
+        }
+        xx += _width[Costume.GetNumberName(number)];
+        i += 1;
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+ .png
+!.png
+".png
+#.png
+$.png
+%.png
+&.png
+'.png
+(.png
+).png
+*.png
++.png
+,.png
+-.png
+..png
+/.png
+0.png
+1.png
+2.png
+3.png
+4.png
+5.png
+6.png
+7.png
+8.png
+9.png
+:.png
+;.png
+<.png
+=.png
+>.png
+?.png
+@.png
+A.png
+a.png
+B.png
+b.png
+C.png
+c.png
+D.png
+d.png
+E.png
+e.png
+F.png
+f.png
+G.png
+g.png
+H.png
+h.png
+I.png
+i.png
+J.png
+j.png
+K.png
+k.png
+L.png
+l.png
+M.png
+m.png
+N.png
+n.png
+O.png
+o.png
+P.png
+p.png
+Q.png
+q.png
+R.png
+r.png
+S.png
+s.png
+T.png
+t.png
+U.png
+u.png
+V.png
+v.png
+W.png
+w.png
+X.png
+x.png
+Y.png
+y.png
+Z.png
+z.png
+[.png
+\.png
+].png
+^.png
+_.png
+{.png
+|.png
+}.png
+~.png
+¡.png
+¿.png
+Á.png
+É.png
+Í.png
+Ó.png
+Ú.png
+á.png
+é.png
+í.png
+ó.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

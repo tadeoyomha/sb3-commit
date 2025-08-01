@@ -1,0 +1,124 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+body length = 50
+x = -50.146559824401
+y = 9.2307044489842
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Car body)
+{
+    Looks.Show();
+    Call Mover;
+    Call Disfraz;
+}
+
+WhenBroadcastReceived(cartel final)
+{
+    Stop(other scripts in sprite);
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(Loose)
+{
+    Stop(other scripts in sprite);
+    Repeat (2)
+    {
+        Looks.SetEffectTo(GHOST, 100);
+        Control.Wait(0.25);
+        Looks.SetEffectTo(GHOST, 0);
+        Control.Wait(0.25);
+    }
+    Repeat (50)
+    {
+        Looks.ChangeEffectBy(GHOST, 2);
+    }
+    Event.Broadcast("Cartel de Perdiste");
+}
+
+WhenBroadcastReceived(reset)
+{
+    Looks.ClearGraphicEffects();
+}
+
+WhenBroadcastReceived(Start Car body)
+{
+    Looks.Show();
+    If (SCENE > 1)
+    {
+        body length = 50;
+    }
+    Else
+    {
+        body length = 20;
+    }
+    Call posicionar;
+    Call Disfraz;
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define Disfraz (warp=true)
+{
+    If (SCENE > 1)
+    {
+        Looks.SetSizeTo((40 * ZOOM));
+        Looks.SwitchCostumeTo(Car);
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(BIG);
+        Looks.SetSizeTo((20 * ZOOM));
+        Looks.SwitchCostumeTo(Bicicleta);
+    }
+}
+
+Define Mover (warp=true)
+{
+    Motion.GoToXY(x, y);
+    Costume.GoToFrontBack(front);
+    Costume.MoveLayers(backward, 2);
+    Motion.PointTowards(Front Wheels);
+    Motion.GoTo(Front Wheels);
+    Motion.Move((0 - (body length * ZOOM)));
+    x = Motion.XPosition();
+    y = Motion.YPosition();
+}
+
+Define posicionar (warp=true)
+{
+    Motion.GoToXY(x, y);
+    Costume.GoToFrontBack(front);
+    Costume.MoveLayers(backward, 2);
+    Motion.PointInDirection(0);
+    Motion.GoTo(Front Wheels);
+    Motion.Move((0 - (body length * ZOOM)));
+    x = Motion.XPosition();
+    y = Motion.YPosition();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+2.svg
+Bicicleta.svg
+BIG.svg
+Car.svg
+Car2.svg
+Tiny.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

@@ -1,0 +1,175 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+tipo = persona
+touching = 1
+
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Cartel de Perdiste)
+{
+    Control.DeleteThisClone();
+}
+
+WhenBroadcastReceived(cartel final)
+{
+    Control.DeleteThisClone();
+}
+
+WhenBroadcastReceived(Entrar persona)
+{
+    If Operator.Contains(tipo, "persona")
+    {
+        If Sensing.TouchingObject(Car Body)
+        {
+            PERSONA += 1;
+            Control.DeleteThisClone();
+        }
+    }
+}
+
+WhenBroadcastReceived(reset)
+{
+    PERSONA = 0;
+    If (Not ())
+    {
+        Control.DeleteThisClone();
+    }
+    Call Posicionar(2) entidades de:("mascota") disfraz(1);
+    Call Posicionar(2) entidades de:("mascota") disfraz(3);
+    Call Posicionar(10) entidades de:("persona") disfraz(17);
+}
+
+WhenBroadcastReceived(Tiempo acabo)
+{
+    Control.DeleteThisClone();
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    If (tipo == "mascota")
+    {
+        Forever
+        {
+            Call Mover Mascota;
+            Repeat (20)
+            {
+                Control.Wait(0.1);
+                If Sensing.TouchingObject(Car Body)
+                {
+                    RAZÓN = "Atropellaste a una mascota";
+                    Event.Broadcast("Loose");
+                }
+            }
+        }
+    }
+}
+
+Control.WhenIStartAsClone()
+{
+    If (tipo == "persona")
+    {
+        Call Animar Persona(Operator.Random(5 , 17));
+    }
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define Animar Persona(string disfraz) (warp=false)
+{
+    Looks.SetSizeTo(5);
+    Looks.SwitchCostumeTo(disfraz);
+    Forever
+    {
+        If Sensing.TouchingObject(Car Body)
+        {
+            Event.Broadcast("Freeze");
+            Stop(this script);
+        }
+    }
+}
+
+Define check touching solid (warp=true)
+{
+    If (Sensing.TouchingColour(#a5c0b5) And (Not ((Sensing.TouchingObject(Car Body) And Sensing.TouchingColour(#000000)))))
+    {
+        touching = 1;
+    }
+    Else
+    {
+        touching = 0;
+    }
+}
+
+Define Mover Mascota (warp=true)
+{
+    Looks.SetSizeTo(7);
+    Forever
+    {
+        Motion.GoTo(_random_);
+        Call check touching solid;
+        If (touching > 0)
+        {
+            Stop(this script);
+        }
+    }
+}
+
+Define Posicionar(string disfraz) (warp=true)
+{
+    Looks.SwitchCostumeTo((disfraz + 1));
+    Forever
+    {
+        Motion.GoTo(_random_);
+        Call check touching solid;
+        If (touching > 0)
+        {
+            Stop(this script);
+        }
+    }
+}
+
+Define Posicionar(string Cantidad) entidades de:(string tipo) disfraz(string disfraz) (warp=true)
+{
+    Looks.Show();
+    Repeat (Cantidad)
+    {
+        Call Posicionar(disfraz);
+        tipo = tipo;
+        Looks.SwitchCostumeTo(disfraz);
+        Control.CreateCloneOf(_myself_);
+    }
+    Looks.Hide();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+character1-a.svg
+character1-b.svg
+character1-c.svg
+character1-d.svg
+character1-e.svg
+character1-f.svg
+character1-g.svg
+character1-h.svg
+character1-i.svg
+character1-j.svg
+character1-k.svg
+character1-l.svg
+character1-m.svg
+character hitbox.svg
+dot-a.svg
+dot-a2.svg
+dot-a2 hitbox.svg
+dot-a hitbox.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+bark.wav

@@ -1,0 +1,52 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+big = 5
+BREAK = 0.9
+LINE HEIGHT = 22.5
+PAGE B = 20
+PAGE L = -75
+PAGE R = 200
+PAGE T = 135
+PERSONA = 0
+POWER = 0.7
+RAZÓN = Saliste de la calle
+retemp = 2
+SCENE = 2
+SPEED = 6.2999999972176
+temp = 40
+TIME = 17.476
+ZOOM = 0.2
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.SwitchBackdropTo(Urban);
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(cartel final)
+{
+    Looks.SwitchBackdropTo(Urban);
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    Looks.SwitchBackdropTo(fondo1);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+fondo1.png
+Stripes.svg
+Urban.png
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

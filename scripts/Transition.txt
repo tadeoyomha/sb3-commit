@@ -1,0 +1,141 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+tipo = 
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Pen.Clear();
+    Motion.GoToXY(0, 0);
+    Looks.SetSizeTo(100);
+    Looks.SwitchCostumeTo(Stripes);
+    Looks.SetEffectTo(GHOST, 100);
+    Control.CreateCloneOf(_myself_);
+    tipo = "";
+    Motion.GoToXY(0, 0);
+    Costume.GoToFrontBack(front);
+    Looks.Show();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Transition1)
+{
+    If (tipo == "")
+    {
+        Stop(this script);
+    }
+    Costume.GoToFrontBack(front);
+    Looks.Hide();
+    Looks.SetSizeTo(100);
+    Looks.SwitchCostumeTo(Transition1);
+    Control.Wait(1);
+    Looks.Show();
+    Call Fast Transition;
+}
+
+
+//----- Start as clone ------------------------------------------------------------------------------------------------
+
+Control.WhenIStartAsClone()
+{
+    tipo = "clon";
+    Looks.SetSizeTo(100);
+    Looks.ClearGraphicEffects();
+    Looks.SwitchCostumeTo(Stripes);
+    Control.Wait(2);
+    Pen.Stamp();
+    Call Lines;
+    Control.Wait(1);
+    Event.Broadcast("start game");
+    Call Circle;
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define (string conut of) lines (warp=true)
+{
+    Repeat (conut of)
+    {
+        temp += 1;
+        Pen.Down();
+        Repeat (1)
+        {
+            Motion.ChangeXBy(480);
+        }
+        Pen.Clear();
+        Motion.GoToXY(-240, ((180 - (temp * (big * 2))) - ((retemp - 1) * big)));
+    }
+}
+
+Define Circle (warp=true)
+{
+    Pen.Clear();
+    Motion.GoToXY(0, 0);
+    Looks.Show();
+    Looks.SetSizeTo(100);
+    Repeat (15)
+    {
+        Looks.SwitchCostumeTo(Tiny);
+        Looks.ChengeSizeBy(130);
+        Looks.SwitchCostumeTo(Transition2);
+    }
+}
+
+Define Fast Transition (warp=false)
+{
+    Motion.GoToXY(32, 0);
+    Repeat Until (Motion.XPosition() < -1338)
+    {
+        Looks.SwitchCostumeTo(Transition1);
+        Motion.Move(-80);
+        If (Motion.XPosition() < -620)
+        {
+            Event.Broadcast("Clear font letters");
+            Event.Broadcast("Generate Maze");
+        }
+        Looks.SwitchCostumeTo(Transition1);
+    }
+    Event.Broadcast("Maze Generated");
+    Motion.GoToXY(0, 0);
+}
+
+Define Lines (warp=false)
+{
+    Looks.SwitchCostumeTo(Transition2);
+    Looks.Hide();
+    big = 5;
+    Pen.Clear();
+    Pen.SetPenColorToColor(#000000);
+    Pen.SetPenSizeTo((big + 1));
+    retemp = 0;
+    Repeat (2)
+    {
+        retemp += 1;
+        Motion.GoToXY(-240, ((180 - (big / 2)) - ((retemp - 1) * big)));
+        temp = 0;
+        Repeat (((2 + (180 / big)) / 4))
+        {
+            Call (4) lines;
+        }
+    }
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+BIG.svg
+Stripes.svg
+Tiny.svg
+Transition1.svg
+Transition2.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

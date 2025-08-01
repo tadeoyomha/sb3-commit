@@ -1,0 +1,208 @@
+//----- Variables -----------------------------------------------------------------------------------------------------
+
+stear = 17.74059232741
+touching = 0
+x = 95
+y = -112
+
+
+
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(cartel final)
+{
+    Stop(other scripts in sprite);
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(colisiones)
+{
+    If Sensing.TouchingColour(#8cde21)
+    {
+        If (SCENE > 1)
+        {
+            Event.Broadcast("cartel final");
+        }
+        Else
+        {
+            Event.Broadcast("Maze Generated");
+        }
+    }
+}
+
+WhenBroadcastReceived(Freeze)
+{
+    Stop(other scripts in sprite);
+    Control.Wait(0);
+    Event.Broadcast("Start - Game loop");
+    Event.Broadcast("Entrar persona");
+}
+
+WhenBroadcastReceived(Front Wheels)
+{
+    Call Turn((Sensing.KeyPressed(right arrow) - Sensing.KeyPressed(left arrow)));
+    Call Acceleration((Sensing.KeyPressed(up arrow) - Sensing.KeyPressed(down arrow)));
+}
+
+WhenBroadcastReceived(Loose)
+{
+    Stop(other scripts in sprite);
+}
+
+WhenBroadcastReceived(Maze Generated)
+{
+    ZOOM = 0.2;
+    SCENE += 1;
+    Event.Broadcast("reset");
+}
+
+WhenBroadcastReceived(reset)
+{
+    Event.Broadcast("Reset time");
+    SPEED = 0;
+    POWER = 0.7;
+    BREAK = 0.9;
+    stear = 0;
+    Call Disfraz;
+    Call Posicionar;
+    Event.Broadcast("Start Car body");
+    Event.Broadcast("Start - Game loop");
+}
+
+WhenBroadcastReceived(Start - Game loop)
+{
+    Forever
+    {
+        Event.Broadcast("Front Wheels");
+        Event.Broadcast("Car body");
+        Event.Broadcast("colisiones");
+    }
+}
+
+
+//----- Custom blocks -------------------------------------------------------------------------------------------------
+
+Define Acceleration(string joystick y) (warp=true)
+{
+    Call Power;
+    SPEED += (POWER * joystick y);
+    SPEED = (SPEED * BREAK);
+    Call Move((ZOOM * SPEED));
+}
+
+Define Change power(string pow. #) (warp=true)
+{
+    POWER = pow. #;
+}
+
+Define Check touching solid (warp=true)
+{
+    If ((Sensing.TouchingColour(#ffc532) Or (Sensing.TouchingObject(Bounds) Or Sensing.TouchingObject(Page))) Or Sensing.TouchingColour(#ffd773))
+    {
+        touching = 1;
+    }
+    Else
+    {
+        touching = 0;
+    }
+}
+
+Define Disfraz (warp=false)
+{
+    If (SCENE > 1)
+    {
+        Looks.SwitchCostumeTo(Car Hitbox);
+        Looks.SetSizeTo(50);
+        Looks.SetEffectTo(GHOST, 100);
+        Looks.Show();
+    }
+    Else
+    {
+        Looks.SwitchCostumeTo(BIG);
+        Looks.SetSizeTo(30);
+        Looks.SwitchCostumeTo(Car Hitbox);
+        Looks.SetEffectTo(GHOST, 100);
+        Looks.Show();
+    }
+}
+
+Define Move(string speed) (warp=true)
+{
+    Motion.SetRotationStyle(don't rotate);
+    Call Try Move((speed * sin(Motion.Direction())))(0);
+    Call Try Move(0)((speed * cos(Motion.Direction())));
+    Motion.SetRotationStyle(all around);
+}
+
+Define Posicionar (warp=false)
+{
+    x = 95;
+    y = -112;
+    Motion.PointInDirection(0);
+    Motion.GoToXY(x, y);
+}
+
+Define Power (warp=true)
+{
+    If Sensing.KeyPressed(1)
+    {
+        Call Change power(0.5);
+    }
+    If Sensing.KeyPressed(2)
+    {
+        Call Change power(0.7);
+    }
+    If Sensing.KeyPressed(3)
+    {
+        Call Change power(0.9);
+    }
+    If Sensing.KeyPressed(4)
+    {
+        Call Change power(1.1);
+    }
+    If Sensing.KeyPressed(5)
+    {
+        Call Change power(1.6);
+    }
+}
+
+Define Try Move(string x)(string y) (warp=true)
+{
+    Motion.ChangeXBy(x);
+    Motion.ChangeYBy(y);
+    Call Check touching solid;
+    If (touching > 0)
+    {
+        Motion.ChangeXBy((0 - x));
+        Motion.ChangeYBy((0 - y));
+        RAZÓN = "Saliste de la calle";
+        Event.Broadcast("Loose");
+    }
+}
+
+Define Turn(string joystick x) (warp=true)
+{
+    stear += (joystick x * 4.5);
+    stear = (stear * 0.8);
+    Motion.PointInDirection((Sensing.Of(direction, Car Body) + stear));
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+BIG.svg
+Car Hitbox.svg
+Tiny.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

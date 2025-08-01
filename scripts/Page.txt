@@ -1,0 +1,82 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(Cartel de Perdiste)
+{
+    Looks.SwitchCostumeTo(disfraz1);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(CIBER)
+{
+    Looks.SwitchCostumeTo(disfraz3);
+}
+
+WhenBroadcastReceived(colisiones)
+{
+    If (SCENE > 1)
+    {
+        If Sensing.TouchingObject(Car Body)
+        {
+            RAZÓN = "Saliste de la calle";
+            Event.Broadcast("Loose");
+        }
+    }
+}
+
+WhenBroadcastReceived(ESPECTRA)
+{
+    Looks.SwitchCostumeTo(disfraz2);
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(reset)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(start game)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Tiempo acabo)
+{
+    Looks.SwitchCostumeTo(disfraz1);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(TIME)
+{
+    Looks.SwitchCostumeTo(Time);
+    Looks.Show();
+}
+
+WhenBroadcastReceived(UAIBOT)
+{
+    Looks.SwitchCostumeTo(disfraz1);
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+disfraz1.svg
+disfraz2.svg
+disfraz3.svg
+Time.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+pop.wav

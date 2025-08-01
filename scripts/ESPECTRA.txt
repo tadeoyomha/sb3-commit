@@ -1,0 +1,29 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(cartel final)
+{
+    Looks.Show();
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(start game)
+{
+    Looks.Show();
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+ESPECTRA2.png

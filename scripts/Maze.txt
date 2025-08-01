@@ -1,0 +1,47 @@
+//----- Green flag events ---------------------------------------------------------------------------------------------
+
+WhenGreenFlagClicked()
+{
+    Looks.Hide();
+}
+
+
+//----- Broadcast received events -------------------------------------------------------------------------------------
+
+WhenBroadcastReceived(cartel final)
+{
+    Looks.Hide();
+}
+
+WhenBroadcastReceived(colisiones)
+{
+    If (SCENE > 1)
+    {
+        If Sensing.ColourTouchingColour(#ffc532, #eb1e1e)
+        {
+            RAZÓN = "Saliste de la calle";
+            Event.Broadcast("Loose");
+        }
+    }
+}
+
+WhenBroadcastReceived(Generate Maze)
+{
+    Motion.GoToXY(0, 0);
+    Looks.SwitchCostumeTo(disfraz2);
+    Looks.SetSizeTo(100);
+    Costume.GoToFrontBack(back);
+    Looks.Show();
+    SCENE = 0;
+}
+
+
+//----- Costumes ------------------------------------------------------------------------------------------------------
+
+disfraz2.svg
+tiny.svg
+
+
+//----- Sounds --------------------------------------------------------------------------------------------------------
+
+Miau.wav
