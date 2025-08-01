@@ -348,7 +348,7 @@ WhenBroadcastReceived(Test script)
     Event.Broadcast("Clear font letters");
     Event.Broadcast("UAIBOT");
     Event.Broadcast("Presiona espacio");
-    Call Write("Hola, chicos y chicas, hoy les vamos a presentar un juego. Estoy cambiando esto!") align("l");
+    Call Write("Hola, chicos y chicas, hoy les vamos a presentar un juego.") align("l");
     Wait Until (Not (Sensing.KeyPressed(space)));
     Wait Until Sensing.KeyPressed(space);
     Event.Broadcast("Clear font letters");
